@@ -142,27 +142,3 @@
         // click event on button will restart process and finsh when time 
         // is over
 
-
-       // Ideas of random shuffle
-
-       // this will create the equal lower and upper case letter
-       function randomEqual(str) {
-         for(let i = 0; i < 2; i++) {
-           topArr.push(str[Math.floor(Math.random() * str.length)]);
-         }
-         bottomArr = topArr.map(function (letter){
-           return letter.toUpperCase();
-         })
-       } 
-       undefined
-       // this will create the nonequal lower and upper case letter
-       function randomNotEqual(str) {
-         for(let i = 0; i < 2; i++) {
-           topArr.push(str[Math.floor(Math.random() * str.length)]);
-           bottomArr.push(str[Math.floor(Math.random() * str.length)]);
-         }
-
-         bottomArr = bottomArr.map(function (letter){
-           return letter.toUpperCase();
-         })
-       } 
