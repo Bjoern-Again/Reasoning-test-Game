@@ -138,5 +138,6 @@
         setTimeout(convert, 3000);
 
 
-        // needs start button that appears before test is present when prest timer starts 
+        // needs start button that appears before test and a timer starts 
         // click event on button will restart process and finsh when time 
+        // is over
