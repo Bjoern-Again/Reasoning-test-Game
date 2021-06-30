@@ -1,32 +1,62 @@
- let str = 'abcdefghijklmnopqrstuvwxyz';
+// not sure if should wrap this into function needs further research 
+let str = 'abcdefghijklmnopqrstuvwxyz';
 let topArr = [];
 let bottomArr = [];
 let count; 
+let timeUnit = 0;
 let score = 0;
+let startBtn = true;
 
 
 
+// timer: calculates time, displays time in 00 and stop time when 3 minutes is reached 
+function displayTime() {
+  // Calculate current hours, minutes, and sceonds
+  let hours = Math.floor(timeUnit/3600);
+  let min = Math.floor((timeUnit % 3600)/60);
+  let sec = Math.floor(timeUnit % 60);
+
+  // display extra zero in the display
+  let displayHour = (hours < 10) ? '0' + hours : hours;
+  let displayMin = (min < 10) ? '0' + min : min;
+  let displaySec = (sec < 10) ? '0' + sec : sec;
 
 
-//
+
+  document.querySelector('.clock').textContent = displayHour + ':' + displayMin + ':' + displaySec;       
+
+  timeUnit++;
+
+  if(displayMin === '03') {
+    stop();
+  }
+}
+
+function stop() {
+  clearInterval(stopWatch);
+  startBtn = true;
+}
+
 // this will create the equal lower and upper case letter
 function randomEqual() {
   topArr = [];
   bottomArr = [];
+
   let randomNumber = Math.floor(Math.random() * 5);
+
   for(let i = 0; i < randomNumber; i++) {
     topArr.push(str[Math.floor(Math.random() * str.length)]);
   }
 
   // this solution is not ideal.. I think it can be solved without the for loop 
-  // bottomArr = topArr dosen't work as then both are the same and recognized as that
+  // bottomArr = topArr dosen't work as they are recognized as the same one changes 
+  // the other changes
   for(let j = 0; j < topArr.length; j++) {
     bottomArr.push(topArr[j]);
   }
 
   randomNotEqual();
 } 
-
 
 
 // this will create the nonequal lower and upper case letter
@@ -77,75 +107,69 @@ compare();
 }
 
 
-
-//this check if the top and bottom column and row are equall
-function compare() {
-  count = 0
+// swtich statement need improving or removing not gone work here 
+// or still need to work it out.. but not happy with the length 
+function compare(){
+  count = 0; 
   for(let i = 0; i < 4; i++) {
-    if(topArr[i] === 'B' && bottomArr[i] === 'b') {
+    if(topArr[i] === 'a' && bottomArr[i] === 'A') {
       count++;
-    } else if(topArr[i] === 'D' && bottomArr[i] === 'd') {
+    } else if (topArr[i] === 'b' && bottomArr[i] === 'B') {
       count++;
-    } else if(topArr[i] === 'Q' && bottomArr[i] === 'q') {
+    } else if (topArr[i] === 'c' && bottomArr[i] === 'C') {
       count++;
-    } else if(topArr[i] === 'P' && bottomArr[i] === 'p') {
+    } else if (topArr[i] === 'd' && bottomArr[i] === 'D') {
+      count++;
+    } else if (topArr[i] === 'e' && bottomArr[i] === 'E') {
+      count++;
+    } else if (topArr[i] === 'f' && bottomArr[i] === 'F') {
+      count++;
+    } else if (topArr[i] === 'g' && bottomArr[i] === 'G') {
+      count++;
+    } else if (topArr[i] === 'h' && bottomArr[i] === 'H') {
+      count++;
+    } else if (topArr[i] === 'i' && bottomArr[i] === 'I') {
+      count++;
+    } else if (topArr[i] === 'j' && bottomArr[i] === 'J') {
+      count++;
+    } else if (topArr[i] === 'k' && bottomArr[i] === 'K') {
+      count++;
+    } else if (topArr[i] === 'l' && bottomArr[i] === 'L') {
+      count++;
+    } else if (topArr[i] === 'm' && bottomArr[i] === 'M') {
+      count++;
+    } else if (topArr[i] === 'n' && bottomArr[i] === 'N') {
+      count++;
+    } else if (topArr[i] === 'o' && bottomArr[i] === 'O') {
+      count++;
+    } else if (topArr[i] === 'p' && bottomArr[i] === 'P') {
+      count++;
+    } else if (topArr[i] === 'q' && bottomArr[i] === 'Q') {
+      count++;
+    } else if (topArr[i] === 'r' && bottomArr[i] === 'R') {
+      count++;
+    } else if (topArr[i] === 's' && bottomArr[i] === 'S') {
+      count++;
+    } else if (topArr[i] === 't' && bottomArr[i] === 'T') {
+      count++;
+    } else if (topArr[i] === 'u' && bottomArr[i] === 'U') {
+      count++;
+    } else if (topArr[i] === 'v' && bottomArr[i] === 'V') {
+      count++;
+    } else if (topArr[i] === 'w' && bottomArr[i] === 'W') {
+      count++;
+    } else if (topArr[i] === 'x' && bottomArr[i] === 'X') {
+      count++;
+    } else if (topArr[i] === 'y' && bottomArr[i] === 'Y') {
+      count++;
+    } else if (topArr[i] === 'z' && bottomArr[i] === 'Z') {
       count++;
     }
   }
 }
 
 
-// swtich statement need improving or removing
-// function compare(){
-//   for(let i = 0; i < 4; i++) {
-//     switch(true) {
-//         case (topArr[i] === 'A' && bottomArr[i] === 'a'):
-//         case (topArr[i] === 'B' && bottomArr[i] === 'b'):
-//         case (topArr[i] === 'C' && bottomArr[i] === 'c'):
-//         case (topArr[i] === 'D' && bottomArr[i] === 'd'):
-//         case (topArr[i] === 'E' && bottomArr[i] === 'e'):
-//         case (topArr[i] === 'F' && bottomArr[i] === 'f'):
-//         case (topArr[i] === 'G' && bottomArr[i] === 'g'):
-//         case (topArr[i] === 'H' && bottomArr[i] === 'h'):
-//         case (topArr[i] === 'I' && bottomArr[i] === 'i'):
-//         case (topArr[i] === 'J' && bottomArr[i] === 'j'):
-//         case (topArr[i] === 'K' && bottomArr[i] === 'k'):
-//         case (topArr[i] === 'L' && bottomArr[i] === 'l'):
-//         case (topArr[i] === 'M' && bottomArr[i] === 'm'):
-//         case (topArr[i] === 'N' && bottomArr[i] === 'n'):
-//         case (topArr[i] === 'O' && bottomArr[i] === 'o'):
-//         case (topArr[i] === 'P' && bottomArr[i] === 'p'):
-//         case (topArr[i] === 'Q' && bottomArr[i] === 'q'):
-//         case (topArr[i] === 'R' && bottomArr[i] === 'r'):
-//         case (topArr[i] === 'S' && bottomArr[i] === 's'):
-//         case (topArr[i] === 'T' && bottomArr[i] === 't'):
-//         case (topArr[i] === 'U' && bottomArr[i] === 'u'):
-//         case (topArr[i] === 'V' && bottomArr[i] === 'v'):
-//         case (topArr[i] === 'W' && bottomArr[i] === 'w'):
-//         case (topArr[i] === 'X' && bottomArr[i] === 'x'):
-//         case (topArr[i] === 'Y' && bottomArr[i] === 'y'):
-//         case (topArr[i] === 'Z' && bottomArr[i] === 'z'):
-//           count++;   
-//     }
-//   }
-// }
-
-// this count the score
-// would have liked to put it all into one function with all 
-// the btn in one place 
-// it's counting regardless - needs work 
-// function countScore() {
-//     if(count === 1) {
-//       score++;
-//     } else if (count === 2) {
-//       score++;
-//     } else if (count === 3) {
-//       score++;
-//     } else if (count === 4) {
-//       score++; 
-//     }
-// displayTest();
-// }
+// functionallity of button/scoring
 
 function btnZeroScore() {
   if(count === 0) {
@@ -186,7 +210,8 @@ function displayTest() {
   let testTr2 = document.getElementById('lowerRow-tr');
   let scoreCount = document.getElementById('score-count');
 
-  // code below reset the htlm to empty otherwise additional eleemts are added to the of the exsisting ones
+  // code below reset the htlm to empty otherwise additional eleemts are added to the of 
+  // the exsisting ones
   scoreCount.innerHTML = '';
   testTr1.innerHTML = '';
   testTr2.innerHTML = '';
@@ -207,10 +232,31 @@ function displayTest() {
   scoreCount.appendChild(scoreTh);
 }
 
+
+// this function is activted whe start button is pressed
+// a few things happen here:
+// 1. the time is set
+// 2. the letters are shuffelled 
+// 3. btn is turned false
+// 4. the button is hidden when pressed
+// 5. the count button are shown 
+function startTime() {
+  if(startBtn) {
+    stopWatch = setInterval(displayTime, 1000);          
+  }
+  randomEqual();
+  startBtn = false; 
+  if(startBtn === false) {
+    document.getElementById('start-btn').style.display = "none";
+  } 
+  document.getElementById('count-btns').style.display = '';
+}
+
+
+
 let btnZero = document.getElementById('btn-zero');
 btnZero.addEventListener('click', btnZeroScore);
 btnZero.addEventListener('click', randomEqual);
-
 
 
 let btnOne = document.getElementById('btn-one');
@@ -230,7 +276,10 @@ btnFour.addEventListener('click', btnFourScore);
 btnFour.addEventListener('click', randomEqual);
 
 
-setTimeout(randomEqual, 3000);
+document.getElementById('start-btn').addEventListener('click', startTime);
+document.getElementById('count-btns').style.display = 'none';
+
+
 
 
 
