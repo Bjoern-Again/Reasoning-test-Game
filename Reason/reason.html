@@ -1,0 +1,256 @@
+<script src="simpleTest.js"></script>
+<script>
+
+
+
+
+// reasoning test
+
+// Wendy is not as strong as Rachel 
+
+// who is weaker? 
+
+// wendy    rachel 
+
+
+
+
+
+
+let gender;
+let adverb;
+let personalAdjective;
+let adjective;
+let type;
+
+// json is loaded in before as data is needed beofore function runs inside of reason doesn't work 
+fetch('personalAdjective.json').then(function (respnose) {
+      respnose.json().then(function(json) {
+        personalAdjective = json;
+      });
+    });
+
+function reason(arr, objJson) {
+
+    // personA & B have to be set to '' and person, the variables have to be set in the global scope outside the function 
+    // if the varaibles are not set to '', the variable will keep the previous assignment 
+    let person;
+    // let adverb;
+    adverb = '';
+    adjective = '';
+    type = ''; 
+    personA = '';
+    personB = '';
+    gender = '';
+
+    // allocates differ gender to person which gives person different name according to gender
+    let sex = ['male', 'female'];
+    gender = sex[Math.floor(Math.random() * sex.length)];
+
+    let adverbChange = ['not as ', ' is '];
+    adverb = adverbChange[Math.floor(Math.random() * adverbChange.length)]
+
+
+    // getAdjective();
+
+    
+    function whichPerson() {
+
+      // random object is chosen 
+      person = arr[Math.floor(Math.random() * arr.length)];
+    
+      // determins what the object is what to do with it
+      if(person.gender === gender) { 
+        // if gender is correct then checks if personA has been pre defined
+        if(personA === '') {
+            // if not pre defined the call another function
+            personAWho(person);
+        } else if(personB === '') {
+            // if personA has been pre defined and personB has not the call function to define personB
+            personBWho(person);
+        } else {
+        // if gender is not correct define chose new person 
+        whichPerson();
+        }
+      }
+    }
+
+    function personAWho(person) {
+      // defined personA by giving it a name and then calling whichPerson again to define personB
+      personA = person.name;
+      whichPerson();
+    }
+
+    function personBWho(person) {
+      // checks if personA is same as the person if so runs function to define new person
+      if(personA === person.name) {
+        whichPerson()
+      } else {
+        // if name is not taken, name is given to personB
+        personB = person.name;
+      }
+    }
+
+    //adverb changing and adjective are connected!!!
+    // if adverbA('not as') then perposition 'as'
+    // if adverbA(' is ') then perposition 'than' 
+    if(adverb === ' not as ') {
+      perposition = ' as ';
+    } else {
+      perposition = ' than ';
+    }
+
+    function getAdjective(obj) {
+      // randomly choses a number from all the possible objects for testing there are only 2
+      // const num = Math.floor(Math.random() * 2);
+      const adjectiveTypeArray = ['synonyms', 'antonyms'];
+      const typeNum = Math.floor(Math.random() * adjectiveTypeArray.length);
+      const adjectiveType = adjectiveTypeArray[typeNum]
+      // attaches adjective from json to adjective variable
+      adjective = obj[0].adjective;
+      type = obj[0][adjectiveType]; 
+      adjectiveEnding()
+    }
+
+
+    function adjectiveEnding() {
+      //this function checks the adjective ending and either removes, adds or adds and removes letter from the ending
+      const length = adjective.length;
+      const sliceLength = adjective.length - 1;
+
+      if(adverb === ' is ') {
+        if(adjective.endsWith('y', length)) {
+          let moreAdjective = adjective.slice(0, sliceLength);
+          adjective = moreAdjective + 'ier';
+
+        } else if (adjective.endsWith('e', length)) {
+          adjective += 'r';
+        } else {
+          adjective += 'er'
+        }
+      }
+    }
+
+
+
+    // calls the function which executes the random choices
+    whichPerson();
+    // randomly chose adjective from json that is loaded in before the whole function starts
+    getAdjective(objJson);
+
+
+
+   return personA + adverb + adjective + perposition + personB + '.' + 'Who' + type + '? ' + personA + personB;
+
+
+           
+}
+
+
+
+
+
+
+tests({
+    'It should have  array with names both male and female':function() {      
+        var objArray = [{'name': 'Wendy', 'gender': 'female'}, {'name': 'Tom', 'gender': 'male'}, {'name': 'Bob', 'gender': 'male'}, {'name': 'Rachel', 'gender': 'female'}];
+        var objJson = [{"adjective": "wise", "synonyms": "knowledgeable", "antonyms": "foolish"}, {"adjective": "chatty", "synonyms": "talkative", "antonyms": "quite"}];
+        reason(objArray, objJson);
+        eq(objArray[0].gender, 'female')
+        eq(objArray[1].gender, 'male')
+    },
+    'It should randomly chose different names from one gender to represent personA and personB':function() {
+        var objArray = [{'name': 'Wendy', 'gender': 'female'}, {'name': 'Tom', 'gender': 'male'}, {'name': 'Bob', 'gender': 'male'}, {'name': 'Rachel', 'gender': 'female'}];
+        var objJson = [{"adjective": "wise", "synonyms": "knowledgeable", "antonyms": "foolish"}, {"adjective": "chatty", "synonyms": "talkative", "antonyms": "quite"}];
+        reason(objArray, objJson)
+        // As it does not seem possible for the eq assumption to be compared to two variable, if else statment check for all possible outcomes
+        if(personA === 'Wendy') {
+          eq(personA, 'Wendy');
+          eq(personB, 'Rachel');
+        } else if(personA === 'Rachel') {
+          eq(personA, 'Rachel');
+          eq(personB, 'Wendy');
+        } else if (personA === 'Tom') {
+          eq(personA, 'Tom');
+          eq(personB, 'Bob');
+        } else {
+          eq(personA, 'Bob');
+          eq(personB, 'Tom');
+        }
+        // how do i test randomness
+    },
+    'It should change between genders':function() {
+        var objArray = [{'name': 'Wendy', 'gender': 'female'}, {'name': 'Tom', 'gender': 'male'}, {'name': 'Bob', 'gender': 'male'}, {'name': 'Rachel', 'gender': 'female'}];
+        var objJson = [{"adjective": "wise", "synonyms": "knowledgeable", "antonyms": "foolish"}, {"adjective": "chatty", "synonyms": "talkative", "antonyms": "quite"}]
+        reason(objArray, objJson);
+        if(gender === 'male') {
+          eq(gender, 'male');
+        } else {
+          eq(gender, 'female');
+        }          
+    },
+    'It should chose randomly between adverb "not as" or "is"':function() {
+      // objArray has to be added otherwise code breaks
+      var objArray = [{'name': 'Wendy', 'gender': 'female'}, {'name': 'Tom', 'gender': 'male'}, {'name': 'Bob', 'gender': 'male'}, {'name': 'Rachel', 'gender': 'female'}];
+      var objJson = [{"adjective": "wise", "synonyms": "knowledgeable", "antonyms": "foolish"}, {"adjective": "chatty", "synonyms": "talkative", "antonyms": "quite"}]
+      reason(objArray, objJson) 
+        if(adverb === ' not as ') {
+          eq(perposition, ' as ')
+        } else {
+          eq(perposition, ' than ')
+        }
+    },
+    'It should have function that changes the adjective corrosponding to the adverb, if adverb is " is " then wise turns into wiser':function() {
+      var objArray = [{'name': 'Wendy', 'gender': 'female'}, {'name': 'Tom', 'gender': 'male'}, {'name': 'Bob', 'gender': 'male'}, {'name': 'Rachel', 'gender': 'female'}];
+      var objJson = [{"adjective": "wise", "synonyms": "knowledgeable", "antonyms": "foolish"}];
+      reason(objArray, objJson)
+      if(adverb === ' is ') {
+        eq(adjective, 'wiser')
+      } 
+    },
+    'It should have function that changes the adjective corrosponding to the adverb, if adverb is " is " then chatty turns into chattier':function() {
+      var objArray = [{'name': 'Wendy', 'gender': 'female'}, {'name': 'Tom', 'gender': 'male'}, {'name': 'Bob', 'gender': 'male'}, {'name': 'Rachel', 'gender': 'female'}];
+      var objJson = [{"adjective": "chatty", "synonyms": "knowledgeable", "antonyms": "quite"}];
+      reason(objArray, objJson)
+      if(adverb === ' is ') {
+        eq(adjective, 'chattier')
+      } 
+    },
+    'It should have function that changes the adjective corrosponding to the adverb, if adverb is " is " then mean turns into meaner':function() {
+      var objArray = [{'name': 'Wendy', 'gender': 'female'}, {'name': 'Tom', 'gender': 'male'}, {'name': 'Bob', 'gender': 'male'}, {'name': 'Rachel', 'gender': 'female'}];
+      var objJson = [{"adjective": "mean", "synonyms": "knowledgeable", "antonyms": "kind"}];
+      reason(objArray, objJson)
+      if(adverb === ' is ') {
+        eq(adjective, 'meaner')
+      } 
+    },
+    'It should have adjective that changes form from synonyms to antomymis':function() {
+      var objArray = [{'name': 'Wendy', 'gender': 'female'}, {'name': 'Tom', 'gender': 'male'}, {'name': 'Bob', 'gender': 'male'}, {'name': 'Rachel', 'gender': 'female'}];
+      var objJson = [{"adjective": "mean", "synonyms": "knowledgeable", "antonyms": "kind"}, {"adjective": "chatty", "synonyms": "talkative", "antonyms": "quite"}]
+      reason(objArray, objJson);
+      eq(type, 'knowledgeable');
+    },
+    'If adverb "not" and the question has antonyms adjective then the answer should be person A':function() {
+        fail();
+    },
+    'If no adverb "not" and the question has antonyms adjective then the answer should be person B':function() {
+        fail();
+    },
+    'If adverb "not" and the question has no antonyms adjective then the answer should be person B':function() {
+        fail();
+    },
+    'If no adverb "not" and the questions has no antonyms adjective then the the answer should be person A':function() {
+        fail();
+    },
+    'It should have an sentence block with various changing parts':function() {
+        fail();
+    },
+    'It should have a timer that runs along the quiz for a certin duration':function() {
+        fail();
+    },
+    'It should count score when the right answer has been clicked':function() {
+        fail();
+    }
+
+});
+</script>
