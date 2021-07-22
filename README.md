@@ -10,6 +10,26 @@ The project will include all the above five section inspired by the Thomas GIA t
 5. Spatial Visualization 
 
 
+
+Reasoning 
+
+Wendy is smarter than Rachel
+
+Who is duller?
+
+Wendy       Rachel
+
+Answer the question from the information that is given above
+Answer Rachel
+
+the informative sentence comes with another variation  
+
+Wendy not as smart as Rachel 
+
+To make the quiz dynamic the individual parts change such as Name, adverbs and proverbs
+
+
+
 Perceptual Speed
 
 E  Q  D  K
