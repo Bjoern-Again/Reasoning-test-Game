@@ -141,24 +141,77 @@ function initialize(objAdjective) {
 
     const length = adjective.length;
     const sliceLength = adjective.length - 1;
+    
+    adjectiveEnding(); 
+  }
 
-    if(adverb === ' is ') {
-      if(adjective.endsWith('y', length)) {
-        let moreAdjective = adjective.slice(0, sliceLength);
-        adjective = moreAdjective + 'ier';
+function adjectiveEnding() {
 
-      } else if (adjective.endsWith('e', length)) {
-        adjective += 'r';
-      } else {
-        adjective += 'er'
-      }
-    }
-  
+    let stemAdjective = adjective.split('')
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    const length = adjective.length;
+    const sliceLength = adjective.length - 1;
     verb = type;
     const verbLength = type.length;
     const slicedVerb = type.length - 1; 
 
+    let count = 0;
+    let syllable = 0;
+    let isVowel = false;
 
+    // loops through adjective array
+    for(let i = 0; i < stemAdjective.length; i++) {
+        // loops through vowels
+        for(let j = 0; j < vowels.length; j++) {
+        // compares adjectives against vowels
+        if(stemAdjective[i] === vowels[j]) {
+            // if letter of adjective is a vowel the turnded to true
+            isVowel = true;
+        }
+        }
+        // inside the stemAdjective loop, checks if the letter is a vowel
+        if(isVowel) {
+        // if letter is vowel the count and set reset vowel to normal letter
+        count++;
+        isVowel = false;
+        } else {
+        /* 
+        if the letter is not a vowel then check if there is count of the previous vowels
+        and add a syllable this way the code counts vowels until a constnant and groups them
+        together as one syllable
+
+        count is set 0 as the next vowels in the adjective are induvidual syllables 
+        */
+        if(count) {
+            syllable++;
+            count = 0; 
+        }
+        }
+    }
+
+    if(adjective.endsWith('y')) {
+      syllable++;
+   }
+
+    if(adverb === ' is ') {
+      if(syllable === 1) {
+ 
+        if (adjective.endsWith('e')) {
+          adjective += 'r';
+        } else {
+          adjective += 'er'
+        }
+      } else {
+        if(adjective.endsWith('y')) {
+          let slicedLength = adjective.length - 1; 
+          let slicedAdjective = adjective.slice(0, slicedLength);
+          adjective = slicedAdjective + 'ier';
+        } else {
+          adjective = 'more ' + adjective;
+        }
+      }
+    }
+ 
     if(type.endsWith('y', verbLength)) {
       let stemType = type.slice(0, slicedVerb);
       verb = stemType + 'ier'         
