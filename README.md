@@ -1,4 +1,4 @@
-# Thomas-GIA-Clone
+# Mock Thomas GIA TEST
 The general intelligence assessment (GIA) is an international assessment often used for filtering out job applicants. It has 5 sections: Reasoning, Perceptual Speed, Number Speed and Accuracy, Word Meaning and Spatial Visualisation.  
 
 The project will include all the above five section inspired by the Thomas GIA test. 
@@ -9,7 +9,7 @@ The project will include all the above five section inspired by the Thomas GIA t
 4. Word Meaning
 5. Spatial Visualization 
 
-
+-----------------------------------------------------------------------------------------------------
 
 Reasoning 
 
@@ -28,9 +28,10 @@ Wendy not as smart as Rachel
 
 To make the quiz dynamic the individual parts change such as Name, adverbs and proverbs
 
-
+------------------------------------------------------------------------------------------------------
 
 Perceptual Speed
+
 
 E  Q  D  K
 
