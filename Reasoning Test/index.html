@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+<link href="style.css" rel="stylesheet">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reasoning Test</title>
+    <title>Reason Test</title>
 </head>
 <body>
+  <div class="grid-container">
+    <div class="clock-container">
+    <p class="clock"></p>
+    </div>
 
-    <p id="main-sentence"></p>
-    <p id='counter'></p>
+    <div class="sentence-container"> 
+      <p id="main-sentence"></p>
+    </div>
     <div id='btns'>
       <button id="button-A"></button>
       <button id="button-B"></button>
     </div>
-    <button id="start-btn" type="button">Start</button>
-    <p class="clock"></p>
 
-    <script src="mainReason.js"> </script> 
+    <div class="score">
+      <p id='counter'></p>
+    </div>
+  </div>
+    <div class="start-container">
+      <button id="start-btn" type="button">Start</button>
+    </div>
+
+
+    <script type="module" src="js/main.js"></script> 
     
 </body>
 </html>
