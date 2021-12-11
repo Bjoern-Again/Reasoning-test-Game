@@ -68,7 +68,7 @@ function definePersonB(personA) {
 
 function displayNames(personA, personB) {
   personOne.innerHTML = personA.name;
-  personTwo.innerHTML = personB.name;
+  personTwo.innerHTML = personB.name + ".";
   btnA.innerHTML = personA.name;
   btnB.innerHTML = personB.name;
 }
@@ -165,12 +165,13 @@ const getAdjective = () => {
 
 // second adjective 
 const getAdjectiveType = (word, convertedAdjective) => {
+  const secAdverb = " is";
   const adjectiveVariation = ['synonyms', 'antonyms'];
   const position = Math.floor(Math.random() * adjectiveVariation.length);
   const type = adjectiveVariation[position];
   adjectiveType = word[type];
   let sylablesInAdjectiveType = syllableFinder(adjectiveType);
-  let convertedAdjectiveType = adjectiveEnding(adjectiveType, sylablesInAdjectiveType, adverb);
+  let convertedAdjectiveType = adjectiveEnding(adjectiveType, sylablesInAdjectiveType, secAdverb);
   return displayAdjective(convertedAdjective ,convertedAdjectiveType)
 }
 
