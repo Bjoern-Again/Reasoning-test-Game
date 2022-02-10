@@ -29,16 +29,4 @@ Wendy not as smart as Rachel
 To make the quiz dynamic the individual parts change such as Name, adverbs and proverbs
 
 ------------------------------------------------------------------------------------------------------
-
-Perceptual Speed
-
-
-E  Q  D  K
-
-e  y  d  k
-
-0  1  2  3  4
-
-Identify the alphabetical equivalant opposite to each other. Add pairs together and chose suitable number. 
-
-
+This project is mainly build in JavaScript, with some html and css
